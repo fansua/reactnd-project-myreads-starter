@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import DisplayShelfHeaders from './DisplayShelfHeaders'
 
 class CreateShelfCase extends Component{
@@ -19,6 +20,9 @@ class CreateShelfCase extends Component{
         </div>
         <div className="list-books-content">
             <DisplayShelfHeaders books={books} shelfTitle={shelfTitle} />
+        </div>
+        <div className="open-search">
+        <Link to='/search'>Add a book</Link>
         </div>
     </div>
     )

@@ -5,21 +5,6 @@ import CreateShelfCase from './CreateShelfCase'
 import AddBook from './AddBook'
 import './App.css'
 
-
-const shelfTitle = [
-  {
-    "id": "cr2018",
-    "shelf": "currentlyReading"
-  },
-  {
-    "id": "wtr2018",
-    "shelf": "wantToRead"
-  },
-  {
-    "id": "r2018",
-    "shelf": "read"
-  }
-]
 class BooksApp extends React.Component {
   state = {
      books: []
@@ -30,17 +15,13 @@ class BooksApp extends React.Component {
         console.log(books)
       this.setState({books: books})
       })
-
-      BooksAPI.search("g").then( (booksSearch) => {
-        console.log(booksSearch)
-      })
     }
 
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={ ()=> (
-          <CreateShelfCase books={this.state.books} shelfTitle={shelfTitle} />
+          <CreateShelfCase books={this.state.books}/>
         )}/>
 
         <Route path='/search' render={() => (

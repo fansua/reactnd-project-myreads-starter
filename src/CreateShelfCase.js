@@ -5,13 +5,12 @@ import DisplayShelfHeaders from './DisplayShelfHeaders'
 
 class CreateShelfCase extends Component{
   static propTypes = {
-    books: PropTypes.array.isRequired,
-    shelfTitle: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired
   }
 
   render(){
 
-    const {books, shelfTitle} = this.props
+    const {books } = this.props
 
     return(
       <div className="list-books">
@@ -19,7 +18,7 @@ class CreateShelfCase extends Component{
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-            <DisplayShelfHeaders books={books} shelfTitle={shelfTitle} />
+            <DisplayShelfHeaders books={books} />
         </div>
         <div className="open-search">
         <Link to='/search'>Add a book</Link>

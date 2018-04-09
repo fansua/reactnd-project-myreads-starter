@@ -16,7 +16,13 @@ class AddBook extends Component{
   }
   updateQuery = (query) => {
     this.setState({query: query.trim()})
-    this.createSearchedBookList(query)
+    if(query){
+      this.createSearchedBookList(query)
+    }
+    else{
+      this.setState({searchedBooks: [] })
+    }
+
   }
 
 
@@ -41,12 +47,13 @@ class AddBook extends Component{
             <li key={book.id} className='book'>
               <div className='book-top'>
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                  <MoveBook />
+                  <MoveBook bookId={book.id}/>
               </div>
               <div className='book-title'>{book.title}</div>
               <div className='book-authors'>{book.authors}</div>
             </li>
           ))}
+
 
 
           </ol>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MoveBook from './MoveBook'
 import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom'
 
 class AddBook extends Component{
   state = {
@@ -24,14 +25,18 @@ class AddBook extends Component{
     }
 
   }
-
+  updateExternalBook = (shelfTitle,bookId) => {
+  //  this.setState({shelfTitle: shelfTitle.trim()})
+  if(this.props.updateExternalDatabase)
+    this.props.updateExternalDatabase(shelfTitle,bookId)
+  }
 
   render(){
         const { query, searchedBooks} = this.state
     return(
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+          <Link className="close-search" to="/">Close</Link>
             <div className="search-books-input-wrapper">
               <input
               type="text"
@@ -47,7 +52,11 @@ class AddBook extends Component{
             <li key={book.id} className='book'>
               <div className='book-top'>
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                  <MoveBook bookId={book.id}/>
+                  <MoveBook
+                  bookId={book}
+                  updateExternalShelfTitle={(shelfTitle,bookId) =>{
+                    this.updateExternalBook(shelfTitle,bookId)
+                  }}/>
               </div>
               <div className='book-title'>{book.title}</div>
               <div className='book-authors'>{book.authors}</div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
+
 
 class MoveBook extends Component{
 
@@ -13,16 +13,11 @@ class MoveBook extends Component{
     "read": "read",
     "none": "none",
   }
-
-  updateExternalShelfTitle = (shelfTitle,book) => {
-    BooksAPI.update(book,shelfTitle).then( (postResponse) => {
-      console.log("The post Response is")
-      console.log(postResponse)
-    })
-  }
-  updateShelfTitle = (shelfTitle,book) => {
-    this.setState({shelfTitle: shelfTitle.trim()})
-    this.updateExternalShelfTitle(shelfTitle,book)
+  updateShelfTitle = (shelfTitle,bookId) => {
+  //  this.setState({shelfTitle: shelfTitle.trim()})
+  console.log(typeof bookId)
+  if(this.props.updateExternalShelfTitle)
+    this.props.updateExternalShelfTitle(shelfTitle,bookId)
   }
 
   render(){

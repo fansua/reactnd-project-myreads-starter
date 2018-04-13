@@ -16,16 +16,33 @@ class BooksApp extends React.Component {
       this.setState({books: books})
       })
     }
+    updateExternalBookList(shelfTitle,book) {
+      console.log(typeof shelfTitle)
+      console.log(typeof book)
+      BooksAPI.update(book,shelfTitle).then( (books) => {
+        console.log(book)
+      this.setState({books: books})
+      })
+    }
 
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={ ()=> (
-          <CreateShelfCase books={this.state.books}/>
+        <Route exact path='/' render={ ({history})=> (
+          <CreateShelfCase
+          books={this.state.books}
+          updateDatabase={(shelfTitle,bookId) =>{
+            this.updateExternalBookList(shelfTitle,bookId)
+              history.push("/")
+          }}/>
         )}/>
 
-        <Route path='/search' render={() => (
-          <AddBook books={this.state.books}/>
+        <Route path='/search' render={({history}) => (
+          <AddBook books={this.state.books}
+          updateExternalDatabase={(shelfTitle,bookId) =>{
+            this.updateExternalBookList(shelfTitle,bookId)
+            history.push("/")
+          }}/>
         )}/>
       </div>
     )

@@ -12,37 +12,39 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
       BooksAPI.getAll().then( (books) => {
+        console.log("These are the books in the database for the ListBooks")
         console.log(books)
       this.setState({books: books})
       })
+
     }
-    updateExternalBookList(shelfTitle,book) {
-      console.log(typeof shelfTitle)
-      console.log(typeof book)
-      BooksAPI.update(book,shelfTitle).then( (books) => {
-        console.log(book)
-      this.setState({books: books})
+    UpdateBook(shelf,book){
+      BooksAPI.update(book,shelf).then( bk => {
+        this.componentDidMount()
+      //  this.setState(state =>({
+          //books:state.books.concat([book])
+        //}))
       })
     }
 
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={ ({history})=> (
-          <CreateShelfCase
-          books={this.state.books}
-          updateDatabase={(shelfTitle,bookId) =>{
-            this.updateExternalBookList(shelfTitle,bookId)
-              history.push("/")
-          }}/>
+        <Route exact path='/' render={ ()=> (
+          <CreateShelfCase books={this.state.books}
+          onMoveBook={(shelf,book) => {
+            this.UpdateBook(shelf,book)
+          }}
+          />
         )}/>
 
         <Route path='/search' render={({history}) => (
           <AddBook books={this.state.books}
-          updateExternalDatabase={(shelfTitle,bookId) =>{
-            this.updateExternalBookList(shelfTitle,bookId)
-            history.push("/")
-          }}/>
+          onUpdateBook={(shelf,book) => {
+            this.UpdateBook(shelf,book)
+            history.push('/')
+          }}
+          />
         )}/>
       </div>
     )

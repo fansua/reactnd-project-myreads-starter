@@ -7,13 +7,9 @@ class DisplayShelfHeaders extends Component{
     books: PropTypes.array.isRequired
   }
 
-  updateExternalBook = (shelfTitle,bookId) => {
-  //  this.setState({shelfTitle: shelfTitle.trim()})
-  if(this.props.updateExternalBooks)
-    this.props.updateExternalBooks(shelfTitle,bookId)
-  }
+
   render(){
-    const {books} = this.props
+    const {books, onChangeBookData} = this.props
 
     return(
       <div>
@@ -21,27 +17,21 @@ class DisplayShelfHeaders extends Component{
           <h2 className="bookshelf-title">Currently Reading</h2>
             <ListBooks
             books={books.filter((book)=> book.shelf === 'currentlyReading')}
-            updateExternalBookList={(shelfTitle,bookId) =>{
-              this.updateExternalBook(shelfTitle,bookId)
-            }}
+            onUpdateBook={onChangeBookData}
             />
         </div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Want to Read</h2>
             <ListBooks
             books={books.filter((book)=> book.shelf === 'wantToRead')}
-            updateExternalBookList={(shelfTitle,bookId) =>{
-              this.updateExternalBook(shelfTitle,bookId)
-            }}
+            onUpdateBook={onChangeBookData}
             />
         </div>
         <div className="bookshelf">
           <h2 className="bookshelf-title">Read</h2>
             <ListBooks
             books={books.filter((book)=> book.shelf === 'read')}
-            updateExternalBookList={(shelfTitle,bookId) =>{
-              this.updateExternalBook(shelfTitle,bookId)
-            }}
+            onUpdateBook={onChangeBookData}
             />
         </div>
       </div>

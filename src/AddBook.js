@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MoveBook from './MoveBook'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
+//import {DebounceInput} from 'react-debounce-input'
 
 class AddBook extends Component{
   state = {
@@ -11,28 +12,27 @@ class AddBook extends Component{
 
   createSearchedBookList = (query) => {
     BooksAPI.search(query).then( (searchedBooks) => {
+      console.log("These are the search books")
       console.log(searchedBooks)
       this.setState({searchedBooks: searchedBooks})
     })
   }
   updateQuery = (query) => {
-    this.setState({query: query.trim()})
-    if(query){
+    console.log(query)
+    if(query && query.length > 0){
+      this.setState({query: query.trim()})
       this.createSearchedBookList(query)
     }
     else{
+       this.setState({query: ""})
       this.setState({searchedBooks: [] })
     }
 
   }
-  updateExternalBook = (shelfTitle,bookId) => {
-  //  this.setState({shelfTitle: shelfTitle.trim()})
-  if(this.props.updateExternalDatabase)
-    this.props.updateExternalDatabase(shelfTitle,bookId)
-  }
 
   render(){
         const { query, searchedBooks} = this.state
+        const{onUpdateBook} = this.props
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -46,27 +46,26 @@ class AddBook extends Component{
               />
             </div>
         </div>
-        <div className="search-books-results">
-          <ol className="books-grid">
-          {searchedBooks.map((book) =>(
-            <li key={book.id} className='book'>
-              <div className='book-top'>
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                  <MoveBook
-                  bookId={book}
-                  updateExternalShelfTitle={(shelfTitle,bookId) =>{
-                    this.updateExternalBook(shelfTitle,bookId)
-                  }}/>
-              </div>
-              <div className='book-title'>{book.title}</div>
-              <div className='book-authors'>{book.authors}</div>
-            </li>
-          ))}
+        { searchedBooks.length > 0 && (
+          <div className="search-books-results">
+            <ol className="books-grid">
+            {searchedBooks.map((book) =>(
+              <li key={book.id} className='book'>
+                <div className='book-top'>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                    <MoveBook
+                    bookData={book}
+                    onChangeBookData={onUpdateBook}
+                    />
+                </div>
+                <div className='book-title'>{book.title}</div>
+                <div className='book-authors'>{book.authors}</div>
+              </li>
+            ))}
+            </ol>
+          </div>
+        )}
 
-
-
-          </ol>
-        </div>
     </div>
     )
   }

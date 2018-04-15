@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 
+
 class MoveBook extends Component{
 
   state = {
@@ -11,25 +12,30 @@ class MoveBook extends Component{
     "currentlyReading": "currentlyReading",
     "wantToRead": "wantToRead",
     "read": "read",
-    "none": "none",
+    "none": "none"
   }
-  updateShelfTitle = (shelfTitle,bookId) => {
-  //  this.setState({shelfTitle: shelfTitle.trim()})
-  console.log(typeof bookId)
-  if(this.props.updateExternalShelfTitle)
-    this.props.updateExternalShelfTitle(shelfTitle,bookId)
+
+/*  updateShelfTitle = (shelfTitle,book) => {
+    this.setState({shelfTitle: shelfTitle.trim()})
+    this.updateExternalShelfTitle(shelfTitle,book)
+handleChange
+  }*/
+  updateShelfTitle = (shelf, book)=> {
+    if(this.props.onChangeBookData)
+     this.props.onChangeBookData(shelf,book)
   }
 
   render(){
-    const {bookId} = this.props
+    const {bookData} = this.props
+
     return(
       <div className="book-shelf-changer">
-        <select onChange={(event) => this.updateShelfTitle(event.target.value,bookId)}>
+        <select defaultValue={bookData.shelf} onChange={(event) => this.updateShelfTitle(event.target.value,bookData)}>
           <option value="none" disabled>Move to...</option>
-          <option value={this.shelfTitles.currentlyReading}>Currently Reading</option>
-          <option value={this.shelfTitles.wantToRead}>Want to Read</option>
-          <option value={this.shelfTitles.read}>Read</option>
-          <option value={this.shelfTitles.none}>None</option>
+          <option value="currentlyReading">Currently Reading</option>
+          <option value="wantToRead">Want to Read</option>
+          <option value="read">Read</option>
+          <option value="none">None</option>
         </select>
       </div>
     )
@@ -37,8 +43,3 @@ class MoveBook extends Component{
 }
 
 export default MoveBook
-
-/*
-
-
-*/

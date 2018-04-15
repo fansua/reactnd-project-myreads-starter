@@ -24,13 +24,20 @@ handleChange
     if(this.props.onChangeBookData)
      this.props.onChangeBookData(shelf,book)
   }
+  setDefaultShelf = (book) => {
+    const defaultShelf ="none"
+    if(book.shelf)
+     return book.shelf
+    else
+      return defaultShelf
+   }
 
   render(){
     const {bookData} = this.props
 
     return(
       <div className="book-shelf-changer">
-        <select defaultValue={bookData.shelf} onChange={(event) => this.updateShelfTitle(event.target.value,bookData)}>
+        <select value={this.setDefaultShelf(bookData)} onChange={(event) => this.updateShelfTitle(event.target.value,bookData)}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

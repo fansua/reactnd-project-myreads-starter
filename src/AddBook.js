@@ -30,6 +30,16 @@ class AddBook extends Component{
 
   }
 
+  setDefaultImage = (books) => {
+    console.log(books.imageLinks)
+    const defaultImage ="none"
+    if(books.imageLinks)
+     return `url(${books.imageLinks.thumbnail})`
+    else
+      console.log("got here")
+      return `url(${defaultImage})`
+   }
+
   render(){
         const { query, searchedBooks} = this.state
         const{onUpdateBook} = this.props
@@ -52,7 +62,7 @@ class AddBook extends Component{
             {searchedBooks.map((book) =>(
               <li key={book.id} className='book'>
                 <div className='book-top'>
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `${this.setDefaultImage(book)}` }}></div>
                     <MoveBook
                     bookData={book}
                     onChangeBookData={onUpdateBook}

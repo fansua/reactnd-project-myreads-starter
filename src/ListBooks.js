@@ -6,6 +6,16 @@ class ListBooks extends Component{
   static propTypes = {
     books: PropTypes.array.isRequired
   }
+
+  setDefaultImage = (books) => {
+    console.log(books.imageLinks)
+    const defaultImage ="none"
+    if(books.imageLinks)
+     return `url(${books.imageLinks.thumbnail})`
+    else
+      console.log("got here")
+      return `url(${defaultImage})`
+   }
   render(){
     const {books,onUpdateBook } = this.props
     return(
@@ -14,7 +24,7 @@ class ListBooks extends Component{
         {books.map((book) =>(
           <li key={book.id} className='book'>
             <div className='book-top'>
-              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `${this.setDefaultImage(book)}` }}></div>
                 <MoveBook
                 bookData={book}
                 onChangeBookData={onUpdateBook}

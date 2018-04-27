@@ -21,6 +21,8 @@ class MoveBook extends Component{
 handleChange
   }*/
   updateShelfTitle = (shelf, book)=> {
+    console.log("before assignment")
+    console.log(book)
     if(this.props.onChangeBookData)
      this.props.onChangeBookData(shelf,book)
   }
@@ -37,7 +39,7 @@ handleChange
 
     return(
       <div className="book-shelf-changer">
-        <select value={this.setDefaultShelf(bookData)} onChange={(event) => this.updateShelfTitle(event.target.value,bookData)}>
+        <select value={bookData.shelf || 'none'} onChange={(event) => this.updateShelfTitle(event.target.value,bookData)}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

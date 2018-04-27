@@ -19,12 +19,19 @@ class BooksApp extends React.Component {
 
     }
     UpdateBook(shelf,book){
-      BooksAPI.update(book,shelf).then( bk => {
-        this.componentDidMount()
+
+      book.shelf = shelf
+      console.log("after assignment")
+      console.log(book)
+        this.setState(state =>({
+          books:state.books.concat([book])
+        }))
+      //BooksAPI.update(book,shelf).then( bk => {
+      //  this.componentDidMount()
       //  this.setState(state =>({
           //books:state.books.concat([book])
         //}))
-      })
+      //})
     }
 
   render() {

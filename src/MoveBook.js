@@ -4,35 +4,13 @@ import React, { Component } from 'react'
 
 class MoveBook extends Component{
 
-  state = {
-
-    shelfTitle: ''
-  }
-  shelfTitles = {
-    "currentlyReading": "currentlyReading",
-    "wantToRead": "wantToRead",
-    "read": "read",
-    "none": "none"
-  }
-
-/*  updateShelfTitle = (shelfTitle,book) => {
-    this.setState({shelfTitle: shelfTitle.trim()})
-    this.updateExternalShelfTitle(shelfTitle,book)
-handleChange
-  }*/
   updateShelfTitle = (shelf, book)=> {
     console.log("before assignment")
     console.log(book)
     if(this.props.onChangeBookData)
      this.props.onChangeBookData(shelf,book)
   }
-  setDefaultShelf = (book) => {
-    const defaultShelf ="none"
-    if(book.shelf)
-     return book.shelf
-    else
-      return defaultShelf
-   }
+
 
   render(){
     const {bookData} = this.props

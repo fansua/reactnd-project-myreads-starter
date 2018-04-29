@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import MoveBook from './MoveBook'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
-//import {DebounceInput} from 'react-debounce-input'
 
 class AddBook extends Component{
   state = {

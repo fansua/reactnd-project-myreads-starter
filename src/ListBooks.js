@@ -8,14 +8,13 @@ class ListBooks extends Component{
   }
 
   setDefaultImage = (books) => {
-    console.log(books.imageLinks)
     const defaultImage ="none"
     if(books.imageLinks)
      return `url(${books.imageLinks.thumbnail})`
     else
-      console.log("got here")
       return `url(${defaultImage})`
    }
+
   render(){
     const {books,onUpdateBook } = this.props
     return(
@@ -26,8 +25,8 @@ class ListBooks extends Component{
             <div className='book-top'>
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `${this.setDefaultImage(book)}` }}></div>
                 <MoveBook
-                bookData={book}
-                onChangeBookData={onUpdateBook}
+                  bookData={book}
+                  onChangeBookData={onUpdateBook}
                 />
             </div>
             <div className='book-title'>{book.title}</div>

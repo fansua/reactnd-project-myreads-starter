@@ -5,10 +5,13 @@ import React, { Component } from 'react'
 class MoveBook extends Component{
 
   updateShelfTitle = (shelf, book)=> {
-    console.log("before assignment")
-    console.log(book)
     if(this.props.onChangeBookData)
      this.props.onChangeBookData(shelf,book)
+
+    if(this.props.onUpdatesearchedBooks)
+      this.props.onUpdatesearchedBooks(shelf,book)
+
+
   }
 
 

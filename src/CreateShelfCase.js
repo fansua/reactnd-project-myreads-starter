@@ -11,7 +11,6 @@ class CreateShelfCase extends Component{
   render(){
 
     const {books,onMoveBook} = this.props
-
     return(
       <div className="list-books">
         <div className="list-books-title">
@@ -19,11 +18,12 @@ class CreateShelfCase extends Component{
         </div>
         <div className="list-books-content">
             <DisplayShelfHeaders
-            books={books}
-            onChangeBookData={onMoveBook}/>
+              books={books}
+              onChangeBookData={onMoveBook}
+            />
         </div>
         <div className="open-search">
-        <Link to='/search'>Add a book</Link>
+          <Link to='/search'>Add a book</Link>
         </div>
     </div>
     )
@@ -31,9 +31,3 @@ class CreateShelfCase extends Component{
 }
 
 export default CreateShelfCase
-
-
-/*
-
-
-*/

@@ -12,13 +12,11 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
       BooksAPI.getAll().then( (books) => {
-        console.log("Here's a lst of shelf books")
-        console.log(books)
-      this.setState({books: books})
+      this.setState({books})
       })
 
     }
-  UpdateBook(shelf,book){
+  /*UpdateBook(shelf,book){
       if(book.shelf !== shelf){
           let tempBookList= this.state.books.filter((bk)=> (bk.id !== book.id))
           book.shelf = shelf
@@ -27,7 +25,16 @@ class BooksApp extends React.Component {
           BooksAPI.update(book,shelf)
 
       }
-    }
+    }*/
+    UpdateBook(shelf,book){
+      BooksAPI.update(book,shelf).then(() => {
+        book.shelf = shelf
+        this.setState(state =>  ({
+          books:state.books.filter(bk => bk.id !== book.id).concat(book)
+        }))
+      })
+      }
+
 
   render() {
     return (
@@ -43,6 +50,7 @@ class BooksApp extends React.Component {
 
         <Route path='/search' render={({history}) => (
           <AddBook
+            shelfBooks={this.state.books}
             onUpdateBook={(shelf,book) => {
               this.UpdateBook(shelf,book)
               history.push('/')

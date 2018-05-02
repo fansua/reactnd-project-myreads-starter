@@ -10,31 +10,51 @@ class AddBook extends Component{
   }
 
 
-    createSearchedBookList = (query) => {
-    BooksAPI.search(query).then( (searchedBooks) => {
-      console.log(searchedBooks)
-      this.setState({searchedBooks: searchedBooks})
+  createSearchedBookList = (query) => {
+    BooksAPI.search(query).then( (sBooks) => {
+      if(sBooks && sBooks.length >0){
+        const tempBooks = sBooks.map((sbk) => {
+          const isShelfBook = this.props.shelfBooks.find((bk) => bk.id === sbk.id)
+          sbk.shelf = isShelfBook ? isShelfBook.shelf : 'none'
+          return sbk
+        });
+        this.setState({searchedBooks: tempBooks})
+          console.log(this.state.searchedBooks)
+      }
+
+
+
     })
+  };
+/*
+BooksAPI.search(this.state.query).then( (searchedBooks) => {
+  if(searchedBooks && searchedBooks.length >0){
+    const tempSearchedBooks = searchedBooks.map((sbk) => {
+      const existingBook = this.props.shelfBooks.find((bk) => bk.id === sbk.id)
+      console.log(existingBook)
+      sbk.shelf = existingBook ? existingBook.shelf : 'none'
+      console.log(sbk.shelf)
+      return sbk
+    });
+      this.setState({searchedBooks: tempSearchedBooks})
+      this.setState({query: ""})
   }
+
+})
+*/
 
     updateQuery = (query) => {
       if(query && query.length >0){
-        this.setState({query: query.trim()})
+        this.setState({query: query})
         this.createSearchedBookList(query)
+
       }
       else{
         this.setState({query: ''})
          this.setState({searchedBooks: [] })
       }
 
-    }
-    updateSearchedBookList =(shelf,book)=>{
-         let tempSearchedList= this.state.searchedBooks.filter((bk)=> (bk.id !== book.id))
-          book.shelf = shelf
-          tempSearchedList.push(book)
-          this.setState({searchedBooks: tempSearchedList})
-          this.setState({query: ""})
-    }
+    };
 
   setDefaultImage = (books) => {
     const defaultImage ="none"
@@ -42,7 +62,7 @@ class AddBook extends Component{
      return `url(${books.imageLinks.thumbnail})`
     else
       return `url(${defaultImage})`
-   }
+   };
 
   render(){
         const {searchedBooks,query} = this.state
@@ -71,10 +91,6 @@ class AddBook extends Component{
                     <MoveBook
                     bookData={book}
                     onChangeBookData={onUpdateBook}
-
-                    onUpdatesearchedBooks={(shelf,book) =>{
-                      this.updateSearchedBookList(shelf,book)
-                    }}
                     />
                 </div>
                 <div className='book-title'>{book.title}</div>

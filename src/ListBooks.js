@@ -13,7 +13,7 @@ class ListBooks extends Component{
      return `url(${books.imageLinks.thumbnail})`
     else
       return `url(${defaultImage})`
-   }
+   };
 
   render(){
     const {books,onUpdateBook } = this.props

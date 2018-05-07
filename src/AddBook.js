@@ -19,29 +19,12 @@ class AddBook extends Component{
           return sbk
         });
         this.setState({searchedBooks: tempBooks})
-          console.log(this.state.searchedBooks)
       }
 
 
 
     })
   };
-/*
-BooksAPI.search(this.state.query).then( (searchedBooks) => {
-  if(searchedBooks && searchedBooks.length >0){
-    const tempSearchedBooks = searchedBooks.map((sbk) => {
-      const existingBook = this.props.shelfBooks.find((bk) => bk.id === sbk.id)
-      console.log(existingBook)
-      sbk.shelf = existingBook ? existingBook.shelf : 'none'
-      console.log(sbk.shelf)
-      return sbk
-    });
-      this.setState({searchedBooks: tempSearchedBooks})
-      this.setState({query: ""})
-  }
-
-})
-*/
 
     updateQuery = (query) => {
       if(query && query.length >0){
@@ -107,9 +90,3 @@ BooksAPI.search(this.state.query).then( (searchedBooks) => {
 }
 
 export default AddBook
-
-
-/*
-
-
-*/

@@ -39,9 +39,3 @@ class DisplayShelfHeaders extends Component{
 }
 
 export default DisplayShelfHeaders
-
-
-/*
-
-
-*/

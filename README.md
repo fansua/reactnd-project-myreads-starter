@@ -85,6 +85,16 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
+
+## Components
+This application was broken up into  6 components
+    -App: This is the parent of the application  where the application was split into two sub-components:- the bookshelf and the the list of books in the database.
+    -CreateShelfCase: This component splits the shelf-case from the search-bar icon.
+    -DisplayShelfHeaders: This components splits the bookshelf into various shelves.
+    -ListBooks: This component displays the books for a particular shelf.
+    -Addbook: This component displays the list of books from the database based on the query.
+    -MoveBook: This components handles the ability to change the books from the different shelves.
+
 ## Contributing
 
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
